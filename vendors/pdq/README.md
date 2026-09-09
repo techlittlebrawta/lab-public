@@ -1,3 +1,3 @@
-# pdq
+# PDQ
 
-Permanent TLB vendor namespace. Presence of this namespace does not claim tested support. Each published artifact must state product, version/model, prerequisites, security implications, validation, rollback, limitations, sources, and changelog.
+Public PDQ Connect package patterns, scanners, groups, API integration patterns and validation material. Production-specific secrets and customer data remain private.

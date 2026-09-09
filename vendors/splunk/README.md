@@ -1,3 +1,3 @@
-# splunk
+# Splunk
 
-Permanent TLB vendor namespace. Presence of this namespace does not claim tested support. Each published artifact must state product, version/model, prerequisites, security implications, validation, rollback, limitations, sources, and changelog.
+Public TLB Splunk laboratory namespace for Enterprise, Cloud, forwarders, ES, SOAR, Observability, add-ons, apps, modular inputs, knowledge objects, dashboards, detections, CIM, AppInspect, packaging and tests.

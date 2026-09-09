@@ -1,11 +1,3 @@
-# lab-public
+# TLB Public Lab
 
-Public configuration, validation, interoperability, and lab automation library, including the PNETLab engineering platform.
-
-## Operating boundary
-
-Source code, automation, schemas, tests, technical documentation, and security-as-code belong here. Corporate records, customer records, contracts, credentials, and live secrets do not.
-
-## Status
-
-Repository baseline established 2026-09-08. Capability folders represent the permanent operating architecture; implementation maturity is tracked inside each capability and must not be inferred from folder existence.
+Public, reproducible technology configurations, automation examples, compatibility data and validation evidence. Publication here does not imply vendor certification or support; support status is tracked explicitly in the registry and support matrices.
