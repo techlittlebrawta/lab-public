@@ -1,0 +1,16 @@
+---
+- name: Validate PNETLab API
+  hosts: localhost
+  gather_facts: false
+  tasks:
+    - name: Query PNETLab status
+      ansible.builtin.uri:
+        url: "{{ pnetlab_url }}/api/status"
+        method: GET
+        headers: "{{ {'Authorization': 'Bearer ' + pnetlab_token} if pnetlab_token is defined else {} }}"
+        validate_certs: true
+        return_content: true
+      register: pnetlab_status
+    - name: Require successful response
+      ansible.builtin.assert:
+        that: pnetlab_status.status == 200

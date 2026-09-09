@@ -1,0 +1,7 @@
+schema_version: 1
+organization: Tech Little Brawta
+repository: lab-public
+visibility: public
+owner: Engineering
+secrets_allowed: false
+corporate_records_allowed: false

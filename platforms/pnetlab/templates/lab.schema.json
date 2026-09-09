@@ -1,0 +1,1 @@
+{"$schema":"https://json-schema.org/draft/2020-12/schema","title":"TLB PNETLab Lab Definition","type":"object","required":["name","nodes","links"],"properties":{"name":{"type":"string"},"nodes":{"type":"array"},"links":{"type":"array"},"metadata":{"type":"object"}}}
