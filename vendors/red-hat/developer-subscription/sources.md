@@ -22,3 +22,8 @@ Checked September 25, 2026.
 - Developer Sandbox FAQ: https://developers.redhat.com/developer-sandbox/FAQ
 - Red Hat developer product catalog: https://developers.redhat.com/products
 - Subscription-backed RHEL container content: https://developers.redhat.com/articles/2026/03/16/unlocking-ubi-red-hat-enterprise-linux-container-images
+
+## Simple Content Access status behavior
+
+- https://access.redhat.com/solutions/7080864
+- https://access.redhat.com/articles/simple-content-access
