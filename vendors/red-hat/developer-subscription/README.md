@@ -34,6 +34,10 @@ Do not put a Red Hat password directly in shell history.
 
 Modern Red Hat documentation describes Simple Content Access as the current access model and the old entitlement-attachment model as deprecated. The normal goal is a registered host with a valid account subscription that can consume available content.
 
+### Do not misread `Overall Status: Disabled`
+
+Red Hat documents that older `subscription-manager` clients can report `Overall Status: Disabled` when Simple Content Access is enabled; that status is not an error. Newer RHEL 10 and updated RHEL 8/9 clients use `Registered` / `Not Registered`. Use `subscription-manager identity`, enabled repositories, and a successful content refresh as the practical proof that registration is working.
+
 ## Validation status
 
 The verification script has been syntax-checked before publication to this repository. A full TLB lab run against a registered RHEL Developer Subscription host is still required before the related website article can pass the TLB publication gate.
@@ -52,3 +56,6 @@ The verification script has been syntax-checked before publication to this repos
 - https://docs.redhat.com/en/documentation/subscription_central/1-latest/html-single/getting_started_with_rhel_system_registration/getting_started_with_rhel_system_registration
 - https://developers.redhat.com/articles/renew-your-red-hat-developer-program-subscription
 - https://developers.redhat.com/articles/2026/03/16/unlocking-ubi-red-hat-enterprise-linux-container-images
+
+- https://access.redhat.com/solutions/7080864
+- https://access.redhat.com/articles/simple-content-access
