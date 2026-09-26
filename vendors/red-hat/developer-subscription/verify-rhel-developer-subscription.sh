@@ -1,26 +1,25 @@
 #!/usr/bin/env bash
 set -euo pipefail
 
-if ! command -v subscription-manager >/dev/null 2>&1; then
-  echo "FAIL: subscription-manager is not installed." >&2
-  exit 1
-fi
-
-if ! command -v dnf >/dev/null 2>&1; then
-  echo "FAIL: dnf is not installed." >&2
-  exit 1
-fi
+for cmd in subscription-manager dnf; do
+  command -v "$cmd" >/dev/null 2>&1 || {
+    echo "FAIL: $cmd is not installed." >&2
+    exit 1
+  }
+done
 
 echo "=== RHEL RELEASE ==="
 cat /etc/redhat-release
 
+if command -v rhc >/dev/null 2>&1; then
+  echo
+  echo "=== RHC STATUS ==="
+  sudo rhc status
+fi
+
 echo
 echo "=== REGISTERED IDENTITY ==="
 sudo subscription-manager identity
-
-echo
-echo "=== SUBSCRIPTION STATUS ==="
-sudo subscription-manager status
 
 echo
 echo "=== ENABLED RED HAT REPOSITORIES ==="
@@ -31,7 +30,7 @@ echo "=== DNF REPOSITORIES ==="
 sudo dnf repolist
 
 echo
-echo "=== REFRESH TEST ==="
+echo "=== CONTENT REFRESH ==="
 sudo dnf makecache --refresh
 
 echo
