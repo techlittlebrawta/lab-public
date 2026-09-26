@@ -1,10 +1,23 @@
 # Red Hat Developer Subscription companion
 
-Companion material for the Tech Little Brawta guide **What You Actually Get with the Red Hat Developer Subscription—and How to Activate It**.
+Companion for the Tech Little Brawta guide **How to claim the Red Hat Developer Subscription and prove RHEL content access**.
 
-## Purpose
+## Registration method
 
-This package gives readers a copy-ready, non-destructive verification command for a RHEL system registered to a Red Hat account.
+Use the registration client that matches the RHEL environment:
+
+- **RHEL 8.8 or later:** Red Hat's current Subscription Central guide uses `rhc connect`.
+- **RHEL 8.7 or earlier, or Satellite-backed registration:** use `subscription-manager register`.
+
+For RHEL 8.8+ with an activation key:
+
+```bash
+sudo rhc connect \
+  --activation-key=<ACTIVATION_KEY> \
+  --organization=<ORG_ID>
+```
+
+For a username/password registration, follow the current Red Hat guide. Do not store a password in this repository, a shared file, screenshots, or video.
 
 ## Verify a registered RHEL host
 
@@ -13,49 +26,23 @@ chmod +x verify-rhel-developer-subscription.sh
 ./verify-rhel-developer-subscription.sh
 ```
 
-The script does **not** register the machine, change subscriptions, enable repositories, install packages, or store credentials. It checks:
+The script is read-only with respect to registration. It checks:
 
 - RHEL release
-- subscription-manager identity
-- subscription-manager status
-- enabled repositories
+- `rhc status` when `rhc` is installed
+- `subscription-manager identity`
+- enabled Red Hat repositories
 - DNF repository visibility
 - a refreshed DNF metadata transaction
 
-## Registration command
+## Simple Content Access
 
-Run interactively on the RHEL system:
-
-```bash
-sudo subscription-manager register
-```
-
-Do not put a Red Hat password directly in shell history.
-
-Modern Red Hat documentation describes Simple Content Access as the current access model and the old entitlement-attachment model as deprecated. The normal goal is a registered host with a valid account subscription that can consume available content.
-
-### Do not misread `Overall Status: Disabled`
-
-Red Hat documents that older `subscription-manager` clients can report `Overall Status: Disabled` when Simple Content Access is enabled; that status is not an error. Newer RHEL 10 and updated RHEL 8/9 clients use `Registered` / `Not Registered`. Use `subscription-manager identity`, enabled repositories, and a successful content refresh as the practical proof that registration is working.
+Do not treat `Overall Status: Disabled` as an automatic registration failure on older clients. Red Hat documents that this can be expected under Simple Content Access. Verify system identity and working content access instead.
 
 ## Validation status
 
-The verification script has been syntax-checked before publication to this repository. A full TLB lab run against a registered RHEL Developer Subscription host is still required before the related website article can pass the TLB publication gate.
+The script passes `bash -n`. The TLB article remains in lab-validation until the commands are run on an authorized RHEL Developer Subscription host and real output/screenshots are retained.
 
 ## Primary references
 
-- https://developers.redhat.com/about
-- https://developers.redhat.com/articles/faqs-no-cost-red-hat-enterprise-linux
-- https://developers.redhat.com/products/rhel
-- https://developers.redhat.com/products/rhel/download
-- https://developers.redhat.com/products/ansible
-- https://developers.redhat.com/products/ansible/download
-- https://developers.redhat.com/developer-sandbox/FAQ
-- https://developers.redhat.com/products
-- https://developers.redhat.com/terms-and-conditions
-- https://docs.redhat.com/en/documentation/subscription_central/1-latest/html-single/getting_started_with_rhel_system_registration/getting_started_with_rhel_system_registration
-- https://developers.redhat.com/articles/renew-your-red-hat-developer-program-subscription
-- https://developers.redhat.com/articles/2026/03/16/unlocking-ubi-red-hat-enterprise-linux-container-images
-
-- https://access.redhat.com/solutions/7080864
-- https://access.redhat.com/articles/simple-content-access
+See `sources.md`.
