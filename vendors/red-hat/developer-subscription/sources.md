@@ -27,3 +27,8 @@ Checked September 25, 2026.
 
 - https://access.redhat.com/solutions/7080864
 - https://access.redhat.com/articles/simple-content-access
+
+
+## Current registration guidance
+
+- https://docs.redhat.com/en-us/documentation/subscription_central/1-latest/pdf/getting_started_with_rhel_system_registration/Subscription_Central-1-latest-Getting_Started_with_RHEL_System_Registration-en-US.pdf
