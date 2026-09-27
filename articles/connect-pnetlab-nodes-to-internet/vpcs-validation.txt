@@ -1,19 +1,32 @@
-SANITIZED PUBLIC VALIDATION RECORD
+LIVE VPCS VALIDATION RECORD
 Date: 2026-09-27
-Node: VPCS connected directly to Management (Cloud0)
+Topology: VPC-Internet-Test eth0 -> Internet-Cloud0 -> Management (Cloud0)
 
-VPC> ip dhcp
-RESULT: PASS - DHCP supplied an IPv4 address, prefix, default gateway, and DNS server.
+VPCS> ip dhcp
+DDORA IP 192.168.1.21/24 GW 192.168.1.1
 
-VPC> show ip
-RESULT: PASS - address, gateway, DNS, and DHCP lease were present.
-Private lab addressing and the interface MAC address are retained only in the controlled Google Drive evidence package.
+VPCS> show ip
+NAME        : VPCS[1]
+IP/MASK     : 192.168.1.21/24
+GATEWAY     : 192.168.1.1
+DNS         : 192.168.1.1
+DHCP SERVER : 192.168.1.1
+MTU         : 1500
 
-VPC> ping <default-gateway> -c 3
-RESULT: PASS - 3 of 3 replies.
+VPCS> ping 192.168.1.1 -c 3
+84 bytes from 192.168.1.1 icmp_seq=1 ttl=64 time=2.410 ms
+84 bytes from 192.168.1.1 icmp_seq=2 ttl=64 time=0.736 ms
+84 bytes from 192.168.1.1 icmp_seq=3 ttl=64 time=1.157 ms
 
-VPC> ping 1.1.1.1 -c 3
-RESULT: PASS - 3 of 3 replies.
+VPCS> ping 1.1.1.1 -c 3
+84 bytes from 1.1.1.1 icmp_seq=1 ttl=55 time=23.762 ms
+84 bytes from 1.1.1.1 icmp_seq=2 ttl=55 time=17.775 ms
+84 bytes from 1.1.1.1 icmp_seq=3 ttl=55 time=20.305 ms
 
-VPC> ping cloudflare.com -c 3
-RESULT: PASS - the name resolved and 3 of 3 replies were received.
+VPCS> ping cloudflare.com -c 3
+cloudflare.com resolved to 104.16.133.229
+84 bytes from 104.16.133.229 icmp_seq=1 ttl=55 time=16.775 ms
+84 bytes from 104.16.133.229 icmp_seq=2 ttl=55 time=19.180 ms
+84 bytes from 104.16.133.229 icmp_seq=3 ttl=55 time=18.046 ms
+
+RESULT: PASS

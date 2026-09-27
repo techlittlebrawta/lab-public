@@ -1,11 +1,15 @@
-# PNETLab Management (Cloud0) example for a DHCP-based management network.
-# Replace eth0 with the server's actual physical uplink name.
-# Keep existing static address, gateway, and DNS values when the server is static.
+# PNETLab Management (Cloud0) bridge used in the TLB 192.168.1.0/24 lab.
+# Verify the physical uplink name, address, gateway, and DNS before using this
+# on another server. Changing pnet0 can disconnect remote management access.
 
 iface eth0 inet manual
 
 auto pnet0
-iface pnet0 inet dhcp
-    dns-nameservers 8.8.8.8
+iface pnet0 inet static
+    address 192.168.1.252
+    netmask 255.255.255.0
+    gateway 192.168.1.1
+    dns-nameservers 192.168.1.1
     bridge_ports eth0
     bridge_stp off
+    bridge_fd 0
