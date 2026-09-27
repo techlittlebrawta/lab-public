@@ -1,12 +1,12 @@
-# Connect a PNETLab VPC to the Internet with Cloud0
+# Give a PNETLab Node Internet Access with Cloud0
 
-This is the public technical companion to the Tech Little Brawta blog, **How to Connect a PNETLab VPC to the Internet with Cloud0**.
+This is the public technical companion to the Tech Little Brawta blog, **How to Give a PNETLab Node Internet Access**.
 
 It contains the reusable configuration and the sanitized proof from the validated lab. It does not contain credentials, private lab URLs, proprietary images, or a PNETLab export.
 
 ## What the lab does
 
-A VPCS node connects directly to **Management (Cloud0)**. On the PNETLab host, Cloud0 maps to the Linux bridge `pnet0`. The upstream lab network supplies DHCP, the default gateway, DNS, and internet access.
+A PNETLab node connects an available interface to **Management (Cloud0)**. On the PNETLab host, Cloud0 maps to the Linux bridge `pnet0`. The upstream lab network supplies DHCP or accepts an appropriate static configuration, plus a default gateway, DNS, and internet access. The validated example uses VPCS; other node types use their own interface commands.
 
 ```text
 Internet-Cloud0 (pnet0) ─── eth0 VPCS
