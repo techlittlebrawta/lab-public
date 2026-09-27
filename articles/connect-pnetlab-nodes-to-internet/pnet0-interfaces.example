@@ -1,0 +1,11 @@
+# PNETLab Management (Cloud0) example for a DHCP-based management network.
+# Replace eth0 with the server's actual physical uplink name.
+# Keep existing static address, gateway, and DNS values when the server is static.
+
+iface eth0 inet manual
+
+auto pnet0
+iface pnet0 inet dhcp
+    dns-nameservers 8.8.8.8
+    bridge_ports eth0
+    bridge_stp off

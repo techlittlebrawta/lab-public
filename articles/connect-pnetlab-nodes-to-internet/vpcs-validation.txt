@@ -1,0 +1,19 @@
+SANITIZED PUBLIC VALIDATION RECORD
+Date: 2026-09-27
+Node: VPCS connected directly to Management (Cloud0)
+
+VPC> ip dhcp
+RESULT: PASS - DHCP supplied an IPv4 address, prefix, default gateway, and DNS server.
+
+VPC> show ip
+RESULT: PASS - address, gateway, DNS, and DHCP lease were present.
+Private lab addressing and the interface MAC address are retained only in the controlled Google Drive evidence package.
+
+VPC> ping <default-gateway> -c 3
+RESULT: PASS - 3 of 3 replies.
+
+VPC> ping 1.1.1.1 -c 3
+RESULT: PASS - 3 of 3 replies.
+
+VPC> ping cloudflare.com -c 3
+RESULT: PASS - the name resolved and 3 of 3 replies were received.
