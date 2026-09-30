@@ -2,9 +2,9 @@
 
 ## Current state
 
-**HOST, INSTALLER, AUTHENTICATED API, AND REBOOT VALIDATION PASSED ON 2026-09-29.**
+**HOST, INSTALLER, AUTHENTICATED API, REBOOT, AND TRUSTED-BROWSER LOGIN VALIDATION PASSED.**
 
-Authenticated browser UI validation remains open because Chrome correctly rejects the lab's private installer CA. The warning has not been bypassed. This record will not call the full publishing package complete until the CA is explicitly trusted and the real UI login has been captured.
+The AAP private installer CA was explicitly trusted in the Windows LocalMachine root store on 2026-09-30. Chrome then loaded the real sign-in page without bypassing a warning, accepted the administrator credentials with the password masked, and opened the authenticated subscription-activation workflow. The required Red Hat subscription activation remains an owner entitlement step; it is not a failed installation or failed login.
 
 ## Tested environment
 
@@ -54,6 +54,17 @@ The initial VM configuration allowed VMware Tools host-time injection. The ESXi 
 - The `aap` user systemd manager returned `running`: PASS
 - All 24 AAP containers returned to `Up`: PASS
 - Authenticated `/api/gateway/v1/me/` after reboot: HTTP 200: PASS
+- Private AAP CA trusted by the review workstation: PASS
+- Browser loaded the sign-in page without a certificate-warning bypass: PASS
+- Administrator sign-in opened the authenticated subscription workflow: PASS
+
+## Browser trust evidence
+
+- CA subject: `CN=Ansible Automation Platform, OU=Ansible, O=Red Hat, L=Raleigh, S=North Carolina, C=US`
+- Windows certificate-store thumbprint: `116528DC78E5258F82C2DBD13B26833C703A7DA5`
+- Certificate SHA-256: `E84E5C3E250B1008872E6BA4301FBB35F4148094CE2F9D1D1CA83FB23478CCDA`
+- Expiry: 2036-09-26
+- Authenticated browser result: subscription activation screen displayed after a real administrator login
 
 ## Evidence boundary
 
