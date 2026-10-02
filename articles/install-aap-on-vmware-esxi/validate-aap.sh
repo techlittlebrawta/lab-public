@@ -18,7 +18,7 @@ password=$(awk -F': ' '$1=="Password"{print $2}' "$CREDENTIAL_FILE")
 url=$(awk -F': ' '$1=="URL"{print $2}' "$CREDENTIAL_FILE")
 [[ -n "$username" && -n "$password" && -n "$url" ]] || { printf 'Credential record is incomplete.\n' >&2; exit 1; }
 
-printf '=== LAB-AAP-CONT-01 VALIDATION ===\n'
+printf '=== AAP POST-REBOOT VALIDATION ===\n'
 printf 'Boot ID: '; cat /proc/sys/kernel/random/boot_id
 printf 'RHEL: '; cat /etc/redhat-release
 printf 'Kernel: '; uname -r

@@ -13,14 +13,14 @@ It contains a one-command installer and a redacted validation command for the AA
 - VMware ESXi 8.0 Update 3
 - Red Hat Enterprise Linux 10.2 x86_64
 - Red Hat Ansible Automation Platform 2.7-9 containerized setup bundle
-- Growth topology on one VM: 4 vCPU, 16 GB RAM, 100 GB disk
+- Growth topology on one VM; the exact lab hardware and network identifiers are retained privately
 
-The observed host, installer, authenticated API, and reboot results are in [VALIDATION.md](VALIDATION.md). The same record preserves the remaining browser-UI evidence boundary instead of treating API authentication as a browser login.
+The observed host, installer, Red Hat registration, compliant AAP subscription, authenticated API, browser login, and reboot results are in [VALIDATION.md](VALIDATION.md).
 
 ## Requirements
 
 1. A supported, fully entitled RHEL 9.6+ or RHEL 10.x x86_64 server.
-2. At least 4 vCPU, 16 GB RAM, 60 GB free disk, working DNS, and a resolvable FQDN.
+2. For Red Hat's tested AAP 2.7 container growth topology: 4 vCPU, 16 GB RAM minimum (20 GB recommended), 80 GB total available disk, 3,000 IOPS, working DNS, and a resolvable FQDN. Bundled installs that seed hub collections require 32 GB RAM when `hub_seed_collections=true`.
 3. Enabled RHEL BaseOS and AppStream repositories.
 4. The AAP 2.7 **containerized setup bundle** copied to the server.
 5. Root or sudo access.
@@ -35,7 +35,13 @@ Create the boot helper from the original Red Hat DVD:
 .\build-rhel-kickstart-iso.ps1 `
   -SourceIso C:\path\to\rhel-10.2-x86_64-dvd.iso `
   -OutputIso C:\private\rhel-10.2-aap-boot.iso `
-  -SshPublicKey C:\path\to\lab-key.pub
+  -SshPublicKey C:\path\to\lab-key.pub `
+  -HostName aap-growth `
+  -Fqdn aap-growth.example.test `
+  -IPv4Address 192.0.2.50 `
+  -Netmask 255.255.255.0 `
+  -Gateway 192.0.2.1 `
+  -Dns 192.0.2.53
 ```
 
 Then provision the VM with both files:
@@ -47,10 +53,15 @@ Then provision the VM with both files:
   -GuestKey C:\private\lab-key `
   -GuestKnownHosts C:\private\guest-known-hosts `
   -InstallerIso C:\private\rhel-10.2-aap-boot.iso `
-  -SourceIso C:\path\to\rhel-10.2-x86_64-dvd.iso
+  -SourceIso C:\path\to\rhel-10.2-x86_64-dvd.iso `
+  -EsxiHost esxi.example.test `
+  -Datastore datastore-name `
+  -VmName aap-growth `
+  -PortGroup server-network `
+  -GuestAddress 192.0.2.50
 ```
 
-The helper does not modify the vendor DVD. This avoids invalidating Red Hat's installation-media layout while still providing a no-touch Kickstart boot.
+The hostnames and addresses above are documentation examples and must be replaced. The helper does not modify the vendor DVD. This avoids invalidating Red Hat's installation-media layout while still providing a no-touch Kickstart boot. The helper's VMware choices are examples, not AAP requirements.
 
 ## One-command installation
 
@@ -135,14 +146,15 @@ The script never invokes the uninstall playbook.
 - **Bundle not detected:** place the `...containerized-setup-bundle...tar.gz` beside the script or set `AAP_BUNDLE`.
 - **FQDN failure:** make the host's FQDN resolvable in DNS or `/etc/hosts`; do not use an unresolvable short name in the installer inventory.
 - **Repository failure:** register RHEL and enable BaseOS plus AppStream.
-- **Resource failure:** allocate at least 4 vCPU, 16 GB RAM, and 60 GB free under `/home`.
+- **Resource failure:** compare the host with the current Red Hat requirements for the selected topology. The script defaults to a conservative 4 vCPU, 16 GB RAM, and 80 GiB available on the installation filesystem for this growth topology.
 - **Installer failure:** read the stage printed by the script and the protected log under `/var/log/aap-installer`.
 - **HTTPS unavailable:** inspect the `aap` user's containers and user services with `sudo -iu aap podman ps` and `sudo -iu aap systemctl --user --failed`.
 
 ## Official references
 
 - [Install containerized Ansible Automation Platform 2.7](https://docs.redhat.com/en/documentation/red_hat_ansible_automation_platform/2.7/install-con_aap_containerized_installation_intro)
-- [AAP 2.7 system requirements](https://docs.redhat.com/en/documentation/red_hat_ansible_automation_platform/2.7/install-ref_cont_aap_system_requirements)
+- [AAP 2.7 system requirements](https://docs.redhat.com/en/documentation/red_hat_ansible_automation_platform/2.7/ref_system_requirements)
+- [AAP 2.7 container growth topology](https://docs.redhat.com/en/documentation/red_hat_ansible_automation_platform/2.7/plan-ref_cont_a_env_a)
 - [Prepare the RHEL host](https://docs.redhat.com/en/documentation/red_hat_ansible_automation_platform/2.7/install-proc_preparing_the_rhel_host_for_containerized_installation)
 - [Create the installation user](https://docs.redhat.com/en/documentation/red_hat_ansible_automation_platform/2.7/install-proc_preparing_the_managed_nodes_for_containerized_installation)
 - [Configure the inventory](https://docs.redhat.com/en/documentation/red_hat_ansible_automation_platform/2.7/install-ref_configuring_inventory_file)

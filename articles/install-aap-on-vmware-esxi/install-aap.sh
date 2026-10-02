@@ -10,7 +10,7 @@ MIN_CPUS=${AAP_MIN_CPUS:-4}
 # A VM allocated 16 GiB reports slightly less in /proc/meminfo after firmware
 # and kernel reservations. 15,000 MiB still enforces the vendor's 16 GiB VM.
 MIN_RAM_MIB=${AAP_MIN_RAM_MIB:-15000}
-MIN_DISK_GIB=${AAP_MIN_DISK_GIB:-60}
+MIN_DISK_GIB=${AAP_MIN_DISK_GIB:-80}
 LOG_DIR=${AAP_LOG_DIR:-/var/log/aap-installer}
 CREDENTIAL_FILE=${AAP_CREDENTIAL_FILE:-/root/aap-install-credentials.txt}
 BUNDLE_OVERRIDE=${AAP_BUNDLE:-}
