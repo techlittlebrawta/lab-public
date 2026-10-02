@@ -4,12 +4,12 @@ param(
     [Parameter(Mandatory)] [string] $OutputIso,
     [Parameter(Mandatory)] [string] $SshPublicKey,
     [string] $WorkingDirectory = (Join-Path $env:TEMP 'tlb-rhel-aap-iso'),
-    [string] $HostName = 'LAB-AAP-CONT-01',
-    [string] $Fqdn = 'LAB-AAP-CONT-01.lab.local',
-    [string] $IPv4Address = '192.168.1.251',
-    [string] $Netmask = '255.255.255.0',
-    [string] $Gateway = '192.168.1.1',
-    [string] $Dns = '192.168.1.1',
+    [Parameter(Mandatory)] [string] $HostName,
+    [Parameter(Mandatory)] [string] $Fqdn,
+    [Parameter(Mandatory)] [string] $IPv4Address,
+    [Parameter(Mandatory)] [string] $Netmask,
+    [Parameter(Mandatory)] [string] $Gateway,
+    [Parameter(Mandatory)] [string] $Dns,
     [string] $TimeZone = 'America/New_York',
     [string] $BootVolumeLabel = 'TLB-AAP-BOOT'
 )
